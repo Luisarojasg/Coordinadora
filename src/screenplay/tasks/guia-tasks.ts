@@ -86,6 +86,10 @@ export class CrearGuia {
 export class ConsultarGuia {
   constructor(private guia: string) {}
 
+  static withGuiaId(guiaId: string): ConsultarGuia {
+    return new ConsultarGuia(guiaId);
+  }
+
   async performAs(actor: Actor): Promise<ApiResponse> {
     return await actor.attemptsTo(
       new ApiRequest('GET', `/guias/cm-guias-ms/guia/${this.guia}`)

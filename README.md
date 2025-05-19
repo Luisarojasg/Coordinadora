@@ -13,7 +13,9 @@ This project contains automated tests for the Coordinadora API using Playwright 
 │       ├── data/         # Test data
 │       ├── interfaces/   # TypeScript interfaces
 │       └── tasks/        # API tasks and requests
-├── tests/                # Test specifications
+├── tests/
+│   ├── performance/     # Load and stress tests
+│   └── guia.spec.ts     # Functional tests
 └── playwright.config.ts  # Playwright configuration
 ```
 
@@ -28,6 +30,30 @@ This project contains automated tests for the Coordinadora API using Playwright 
   - Reference validation
   - Value collection validation
   - Error handling
+- Performance testing:
+  - Load testing (20 concurrent users)
+  - Stress testing (up to 6000 requests)
+
+## Performance Testing
+
+### Load Test
+- Concurrent Users: 20
+- Request Rate: 2 requests/second
+- Duration: 1 minute
+- Expected Total Requests: 100
+- Success Criteria:
+  - Average Response Time ≤ 500ms
+  - Error Rate < 1%
+
+### Stress Test
+- Initial Users: 100
+- User Increment: +50 every 15 seconds
+- Request Rate: Gradual increase from 10 to 100 RPS
+- Duration: 1 minute
+- Maximum Expected Requests: 6,000
+- Success Criteria:
+  - Progressive performance degradation
+  - Identification of system breaking point
 
 ## Prerequisites
 
@@ -49,7 +75,8 @@ npm install
 
 ## Running Tests
 
-To run all tests:
+### Functional Tests
+To run all functional tests:
 ```bash
 npx playwright test
 ```
@@ -57,6 +84,17 @@ npx playwright test
 To run specific test file:
 ```bash
 npx playwright test tests/guia.spec.ts
+```
+
+### Performance Tests
+To run load test:
+```bash
+npx playwright test tests/performance/load-test.spec.ts
+```
+
+To run stress test:
+```bash
+npx playwright test tests/performance/stress-test.spec.ts
 ```
 
 ## Test Reports
